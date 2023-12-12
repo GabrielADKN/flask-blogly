@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/details.css" />
+    <title>{{user.id}}</title>
+</head>
+
+<body>
+    <h1>User number {{ user.id }}</h1>
+    <div class="user-info">
+        <!-- <img class = "img-box" src="{{user.image_url}}" alt="{{ user.first_name }} {{ user.last_name }}"> -->
+        <p>Delete {{ user.first_name }} {{ user.last_name }}</p>
+        <form action="/users/{{user.id}}/delete" method="post">
+            <button>Yes</button>
+        </form>
+        <p>or</p>
+        <form action="/users/{{user.id}}/edit">
+            <button>No</button>
+        </form>
+        <!-- <div class="button_div">
+            <button class="button_edit">
+                <a href="/users/{{user.id}}/edit">Edit</a>
+            </button>
+            <button class="button_delete">
+                <a href="/users/{{user.id}}/delete">Delete</a>
+            </button>
+        </div> -->
+    </div>
+
+    <a class="btn" href="/">Home</a>
+</body>
+
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/edit.css">
+    <title>Edit {{user.id}}</title>
+</head>
+<body>
+    <form action="/users/{{user.id}}/edit" method="post">
+        <label for="first_name">First name</label>
+        <input type="text" name="first_name" value="{{user.first_name}}">
+        <label for="last_name">Last name</label>
+        <input type="text" name="last_name" value="{{user.last_name}}">
+        <label for="image">Image URL</label>
+        <input type="url" name="image" value="{{user.image_url}}">
+        <a class="btn" href="/">Cancel</a>
+        <button>Save</button>
+    </form>
+</body>
+</html>

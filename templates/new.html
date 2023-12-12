@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/edit.css">
+    <title>Add new user</title>
+</head>
+<body>
+    <form action="/users/new" method="post">
+        <label for="first_name">First name</label>
+        <input type="text" name="first_name" placeholder="Enter a first name" required>
+        <label for="last_name">Last name</label>
+        <input type="text" name="last_name" placeholder="Enter a last name" required>
+        <label for="image">Image URL</label>
+        <input type="url" name="image" placeholder="Provide an image of this user">
+        <button>Add</button>
+    </form>
+    <a class="btn" href="/">Home</a>
+</body>
+</html>
