@@ -9,15 +9,14 @@
 </head>
 
 <body>
-    <h1>User number {{ user.id }}</h1>
+    <h1>{{ post.title }}</h1>
     <div class="user-info">
-        <!-- <img class = "img-box" src="{{user.image_url}}" alt="{{ user.first_name }} {{ user.last_name }}"> -->
-        <p>Delete {{ user.first_name }} {{ user.last_name }}</p>
-        <form action="/users/{{user.id}}/delete" method="post">
+        <p>Delete {{ post.title }} By {{user.get_full_name()}}</p>
+        <form action="/posts/{{post.id}}/delete" method="post">
             <button>Yes</button>
         </form>
         <p>or</p>
-        <form action="/users/{{user.id}}">
+        <form action="/posts/{{post.id}}">
             <button>No</button>
         </form>
         <!-- <div class="button_div">

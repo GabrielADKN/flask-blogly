@@ -1,5 +1,5 @@
 """Seed the database."""
-from models import db, connect_db, User
+from models import db, connect_db, User, Post
 from app import app
 
 # Create all tables
@@ -22,4 +22,27 @@ db.session.add(Olivier)
 db.session.add(Jennifer)
 
 # Commit changes
+db.session.commit()
+
+post1 = Post(title="First Post", content="This is the first post ever!", user_id=1)
+post2 = Post(title="Second Post", content="This is the second post ever!", user_id=1)
+post3 = Post(title="Third Post", content="This is the third post ever!", user_id=1)
+post4 = Post(title="Fourth Post", content="This is the fourth post ever!", user_id=1)
+
+post5 = Post(title="First Post", content="This is the first post ever!", user_id=2)
+post6 = Post(title="Second Post", content="This is the second post ever!", user_id=2)
+post7 = Post(title="Third Post", content="This is the third post ever!", user_id=2)
+post8 = Post(title="Fourth Post", content="This is the fourth post ever!", user_id=2)
+
+post9 = Post(title="First Post", content="This is the first post ever!", user_id=4)
+post10 = Post(title="Second Post", content="This is the second post ever!", user_id=4)
+post11 = Post(title="Third Post", content="This is the third post ever!", user_id=4)
+post12 = Post(title="Fourth Post", content="This is the fourth post ever!", user_id=4)
+
+post13 = Post(title="First Post", content="This is the first post ever!", user_id=3)
+post14 = Post(title="Second Post", content="This is the second post ever!", user_id=3)
+post15 = Post(title="Third Post", content="This is the third post ever!", user_id=3)
+post16 = Post(title="Fourth Post", content="This is the fourth post ever!", user_id=3)
+
+db.session.add_all([post1, post2, post3, post4, post5, post6, post7, post8, post9, post10, post11, post12, post13, post14, post15, post16])
 db.session.commit()

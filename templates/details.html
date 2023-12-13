@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/details.css">
     <title>{{user.id}}</title>
 </head>
+
 <body>
     <h1>User number {{ user.id }}</h1>
     <div class="user-info">
-        <img class = "img-box" src="{{user.image_url}}" alt="{{ user.get_full_name() }}">
+        <img class="img-box" src="{{user.image_url}}" alt="{{ user.get_full_name() }}">
         <p>{{ user.first_name }} {{ user.last_name }}</p>
         <div class="button_div">
             <button class="button_edit">
@@ -19,8 +21,25 @@
                 <a href="/users/{{user.id}}/delete">Delete</a>
             </button>
         </div>
+        <div>
+            <p>Posts</p>
+            <ul class="list">
+                {% for post in posts %}
+                <li>
+                    <a href="/posts/{{post.id}}">
+                        {{ post.title }}
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+            <button class="button_edit">
+                <a href="/users/{{user.id}}/posts/new">Add Post</a>
+            </button>
+        </div>
+
     </div>
-    
+
     <a class="btn" href="/">Home</a>
 </body>
+
 </html>

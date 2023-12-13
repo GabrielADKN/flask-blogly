@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/details.css">
+    <title>Post {{post.id}} details</title>
+</head>
+
+<body>
+    <h1>{{ post.title }}</h1>
+    <div class="user-info">
+        <p>{{ post.content }}</p>
+        <p>By {{user.get_full_name()}}</p>
+        <div class="button_div">
+            <button class="button_edit">
+                <a href="/posts/{{post.id}}/edit">Edit</a>
+            </button>
+            <button class="button_delete">
+                <a href="/posts/{{post.id}}/delete">Delete</a>
+            </button>
+            <button class="button">
+                <a href="/users/{{user.id}}">Cancel</a>
+            </button>
+        </div>
+    </div>
+</body>
+
+</html>

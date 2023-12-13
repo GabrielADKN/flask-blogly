@@ -1,5 +1,6 @@
 """Models for Blogly."""
 
+from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
@@ -92,3 +93,71 @@ class User(db.Model):
         """Get full name."""
         u = self
         return f"{u.first_name} {u.last_name}"
+
+
+class Post(db.Model):
+    __tablename__ = "posts"
+
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    title = db.Column(db.String(50), nullable=False)
+    content = db.Column(db.String(200), nullable=False)
+    created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+
+    user = db.relationship("User", backref="posts")
+
+    def __repr__(self):
+        """Show info about post."""
+        p = self
+        return f"<Post {p.id} {p.title} {p.content} {p.created_at} {p.user_id}>"
+
+    @classmethod
+    def get_all_posts(cls):
+        """Get all posts."""
+        return cls.query.all()
+
+    @classmethod
+    def find_by_id(cls, _id):
+        """Find post by id."""
+        return cls.query.filter_by(id=_id).first()
+
+    @classmethod
+    def find_user_all_posts(cls, user_id):
+        """Find all posts by user."""
+        return cls.query.filter_by(user_id=user_id).all()
+
+    @classmethod
+    def find_or_create(cls, title, content, user_id):
+        """Find or create post."""
+        post = cls(
+            title=title,
+            content=content,
+            user_id=user_id,
+        )
+        post.save_to_db()
+        return post
+
+    @classmethod
+    def update_post(cls, _id, title, content):
+        """Update post."""
+        post = cls.find_by_id(_id)
+        post.title = title
+        post.content = content
+        post.save_to_db()
+        return post
+
+    @classmethod
+    def delete_post(cls, _id):
+        """Delete post."""
+        post = cls.find_by_id(_id)
+        post.delete_from_db()
+
+    def save_to_db(self):
+        """Save post to database."""
+        db.session.add(self)
+        db.session.commit()
+
+    def delete_from_db(self):
+        """Delete post from database."""
+        db.session.delete(self)
+        db.session.commit()
