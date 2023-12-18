@@ -22,7 +22,7 @@
                     </a>
                     on
                     <a href="/posts/{{post.id}}">
-                        {{ post.created_at.strftime('%b %d %Y') }}
+                        {{ post.get_date()}}
                     </a>
                     <br>
                     Tags:
@@ -42,21 +42,6 @@
         <h3>No posts yet</h3>
     {% endif %}
 
-
-    <!-- {% if users %}
-        <h1>Users</h1>
-        <ul class="list">
-            {% for user in users %}
-                <li>
-                    <a href="/users/{{user.id}}">
-                        {{ user.get_full_name() }}
-                    </a>
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <h1>No users yet</h1>
-    {% endif %} -->
     <a class="btn" href="/users">User</a>
     <a class="btn btn-tags" href="/tags">Tags</a>
     <a class="btn" href="/">Home</a>
