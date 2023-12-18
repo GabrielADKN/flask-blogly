@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/details.css" />
+    <title>Delete {{tag.name}}</title>
+</head>
+
+<body>
+    <h1>{{ tag.name }}</h1>
+    <div class="user-info">
+        <p>Delete tag : {{ tag.name }} </p>
+        <form action="/tags/{{tag.id}}/delete" method="post">
+            <button>Yes</button>
+        </form>
+        <p>or</p>
+        <form action="/tags/{{tag.id}}">
+            <button>No</button>
+        </form>
+    </div>
+
+    <a class="btn" href="/">Home</a>
+</body>
+
+</html>

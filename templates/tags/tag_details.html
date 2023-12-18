@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/details.css">
+    <title>Tag {{tag.id}} details</title>
+</head>
+
+<body>
+    <h1>{{ tag.name }}</h1>
+    <div class="user-info">
+        {% if tag.posts %}
+        <ul class="list">
+            {% for post in tag.posts %}
+            <li>
+                <a href="/posts/{{post.id}}">
+                    {{ post.title }}
+                </a>
+                by
+                <a class='badge badge-author' href="/users/{{post.user.id}}">
+                    {{ post.user.get_full_name() }}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <h3>No post yet</h3>
+        {% endif %}
+
+        <div class="button_div">
+            <button class="button_edit">
+                <a href="/tags/{{tag.id}}/edit">Edit</a>
+            </button>
+            <button class="button_delete">
+                <a href="/tags/{{tag.id}}/delete">Delete</a>
+            </button>
+            <button class="button">
+                <a href="/tags">Cancel</a>
+            </button>
+        </div>
+    </div>
+</body>
+
+</html>

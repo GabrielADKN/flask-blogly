@@ -99,3 +99,23 @@ button {
     color: white;
 }
 
+.form-check {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.form-check > div {
+    display: flex;
+    align-items: center;
+}
+
+.form-check-input {
+    margin-right: 10px;
+}
+
+.form-check-label {
+    font-size: 14px;
+    color: #333;
+}
+

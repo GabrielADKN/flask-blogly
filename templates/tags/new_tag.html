@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/edit.css">
+    <title>Add new Tag </title>
+</head>
+<body>
+    <h1>Create a Tag</h1>
+    <form action="/tags/new" method="post">
+        <label for="name">Name </label>
+        <input type="text" name="name" placeholder="Enter a name for the tag" required>
+
+        <button class="button">
+            <a href="/users">Cancel</a>
+        </button>
+        <button>Add</button>
+    </form>
+    <a class="btn" href="/">Home</a>
+</body>
+</html>

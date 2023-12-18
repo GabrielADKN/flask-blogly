@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/index.css">
+    <title>Blogly Home</title>
+</head>
+<body>
+    <h1>Blogly Recent Posts</h1>
+    {% if posts %}
+        <ul class="recent">
+            {% for post in posts %}
+                <li >
+                    <a href="/posts/{{post.id}}">
+                        {{ post.title }}
+                    </a>
+                    <br>
+                    by
+                    <a href="/users/{{post.user.id}}">
+                        {{ post.user.get_full_name() }}
+                    </a>
+                    on
+                    <a href="/posts/{{post.id}}">
+                        {{ post.created_at.strftime('%b %d %Y') }}
+                    </a>
+                    <br>
+                    Tags:
+                    {% if  post.tags %}
+                        {% for tag in post.tags %}
+                            <a href="/tags/{{tag.id}}">
+                                <i class="badge badge-primary">{{ tag.name }}</i>
+                            </a>
+                        {% endfor %}
+                    {% else %}
+                        No tags yet
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <h3>No posts yet</h3>
+    {% endif %}
+
+
+    <!-- {% if users %}
+        <h1>Users</h1>
+        <ul class="list">
+            {% for user in users %}
+                <li>
+                    <a href="/users/{{user.id}}">
+                        {{ user.get_full_name() }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <h1>No users yet</h1>
+    {% endif %} -->
+    <a class="btn" href="/users/new">Add User</a>
+    <a class="btn btn-tags" href="/tags">See Tags</a>
+    <a class="btn" href="/">Home</a>
+</body>
+</html>

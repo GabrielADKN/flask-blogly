@@ -1,5 +1,5 @@
 """Seed the database."""
-from models import db, connect_db, User, Post
+from models import db, connect_db, User, Post, Tag, PostTag
 from app import app
 
 # Create all tables
@@ -45,4 +45,48 @@ post15 = Post(title="Third Post", content="This is the third post ever!", user_i
 post16 = Post(title="Fourth Post", content="This is the fourth post ever!", user_id=3)
 
 db.session.add_all([post1, post2, post3, post4, post5, post6, post7, post8, post9, post10, post11, post12, post13, post14, post15, post16])
+db.session.commit()
+
+tag1 = Tag(name="Fun")
+tag2 = Tag(name="Sad")
+tag3 = Tag(name="Happy")
+tag4 = Tag(name="Exciting")
+tag5 = Tag(name="Boring")
+tag6 = Tag(name="Scary")
+
+db.session.add_all([tag1, tag2, tag3, tag4, tag5, tag6])
+db.session.commit()
+
+posttag1 = PostTag(post_id=1, tag_id=1)
+posttag2 = PostTag(post_id=2, tag_id=2)
+posttag3 = PostTag(post_id=3, tag_id=3)
+posttag4 = PostTag(post_id=4, tag_id=4)
+posttag5 = PostTag(post_id=5, tag_id=5)
+posttag6 = PostTag(post_id=6, tag_id=6)
+posttag7 = PostTag(post_id=7, tag_id=1)
+posttag8 = PostTag(post_id=8, tag_id=2)
+posttag9 = PostTag(post_id=1, tag_id=3)
+posttag10 = PostTag(post_id=2, tag_id=4)
+posttag11 = PostTag(post_id=2, tag_id=5)
+posttag12 = PostTag(post_id=2, tag_id=6)
+posttag13 = PostTag(post_id=3, tag_id=1)
+posttag14 = PostTag(post_id=3, tag_id=2)
+posttag15 = PostTag(post_id=4, tag_id=3)
+posttag16 = PostTag(post_id=3, tag_id=4)
+posttag17 = PostTag(post_id=3, tag_id=5)
+posttag18 = PostTag(post_id=3, tag_id=6)
+posttag19 = PostTag(post_id=4, tag_id=1)
+posttag20 = PostTag(post_id=4, tag_id=2)
+posttag21 = PostTag(post_id=7, tag_id=3)
+posttag22 = PostTag(post_id=10, tag_id=4)
+posttag23 = PostTag(post_id=4, tag_id=5)
+posttag24 = PostTag(post_id=4, tag_id=6)
+posttag25 = PostTag(post_id=5, tag_id=1)
+posttag26 = PostTag(post_id=5, tag_id=2)
+posttag27 = PostTag(post_id=5, tag_id=3)
+posttag28 = PostTag(post_id=5, tag_id=4)
+posttag29 = PostTag(post_id=8, tag_id=5)
+posttag30 = PostTag(post_id=5, tag_id=6)
+
+db.session.add_all([posttag1, posttag2, posttag3, posttag4, posttag5, posttag6, posttag7, posttag8, posttag9, posttag10, posttag11, posttag12, posttag13, posttag14, posttag15, posttag16, posttag17, posttag18, posttag19, posttag20, posttag21, posttag22, posttag23, posttag24, posttag25, posttag26, posttag27, posttag28, posttag29, posttag30])
 db.session.commit()

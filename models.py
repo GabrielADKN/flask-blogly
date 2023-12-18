@@ -84,6 +84,8 @@ class User(db.Model):
     last_name = db.Column(db.String(50), nullable=False)
     image_url = db.Column(db.String(200), default=DEFAULT_IMAGE_URL)
 
+    posts = db.relationship("Post", backref="user", cascade="all, delete-orphan")
+
     def __repr__(self):
         """Show info about user."""
         u = self
@@ -104,7 +106,8 @@ class Post(db.Model):
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
 
-    user = db.relationship("User", backref="posts")
+    # user = db.relationship("User", backref="posts")
+    tags = db.relationship("Tag", secondary="post_tags", backref="posts")
 
     def __repr__(self):
         """Show info about post."""
@@ -152,6 +155,11 @@ class Post(db.Model):
         post = cls.find_by_id(_id)
         post.delete_from_db()
 
+    def get_date(self):
+        """Get date."""
+        p = self
+        return p.created_at.strftime("%b %d %Y, %I:%M %p")
+
     def save_to_db(self):
         """Save post to database."""
         db.session.add(self)
@@ -159,5 +167,137 @@ class Post(db.Model):
 
     def delete_from_db(self):
         """Delete post from database."""
+        db.session.delete(self)
+        db.session.commit()
+        
+    @classmethod
+    def get_recent_posts(cls):
+        """Get recent posts."""
+        return cls.query.order_by(cls.created_at.desc()).limit(5).all()
+
+
+class Tag(db.Model):
+    """Tag model."""
+
+    __tablename__ = "tags"
+
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.String(50), nullable=False, unique=True)
+
+    # posts = db.relationship("Post", secondary="post_tags", backref="tags")
+
+    def __repr__(self):
+        """Show info about tag."""
+        t = self
+        return f"<Tag {t.id} {t.name}>"
+
+    @classmethod
+    def get_all_tags(cls):
+        """Get all tags."""
+        return cls.query.all()
+
+    @classmethod
+    def find_by_id(cls, _id):
+        """Find tag by id."""
+        return cls.query.filter_by(id=_id).first()
+
+    @classmethod
+    def find_by_name(cls, name):
+        """Find tag by name."""
+        return cls.query.filter_by(name=name).first()
+
+    @classmethod
+    def find_or_create(cls, name):
+        """Find or create tag."""
+        tag = cls.find_by_name(name)
+        if tag:
+            return tag
+        tag = cls(
+            name=name,
+        )
+        tag.save_to_db()
+        return tag
+
+    @classmethod
+    def update_tag(cls, _id, name):
+        """Update tag."""
+        tag = cls.find_by_id(_id)
+        tag.name = name
+        tag.save_to_db()
+        return tag
+
+    @classmethod
+    def delete_tag(cls, _id):
+        """Delete tag."""
+        tag = cls.find_by_id(_id)
+        tag.delete_from_db()
+
+    def save_to_db(self):
+        """Save tag to database."""
+        db.session.add(self)
+        db.session.commit()
+
+    def delete_from_db(self):
+        """Delete tag from database."""
+        db.session.delete(self)
+        db.session.commit()
+
+
+class PostTag(db.Model):
+    """PostTag model."""
+
+    __tablename__ = "post_tags"
+
+    post_id = db.Column(db.Integer, db.ForeignKey("posts.id"), primary_key=True)
+    tag_id = db.Column(db.Integer, db.ForeignKey("tags.id"), primary_key=True)
+
+    def __repr__(self):
+        """Show info about post_tag."""
+        pt = self
+        return f"<PostTag {pt.post_id} {pt.tag_id}>"
+
+    @classmethod
+    def get_all_post_tags(cls):
+        """Get all post_tags."""
+        return cls.query.all()
+
+    @classmethod
+    def find_by_post_id(cls, post_id):
+        """Find post_tag by post_id."""
+        return cls.query.filter_by(post_id=post_id).all()
+
+    @classmethod
+    def find_by_tag_id(cls, tag_id):
+        """Find post_tag by tag_id."""
+        return cls.query.filter_by(tag_id=tag_id).all()
+
+    @classmethod
+    def find_by_post_tag(cls, post_id, tag_id):
+        """Find post_tag by post_id and tag_id."""
+        return cls.query.filter_by(post_id=post_id, tag_id=tag_id).first()
+
+    @classmethod
+    def find_or_create(cls, post_id, tag_id):
+        """Find or create post_tag."""
+        post_tag = cls(
+            post_id=post_id,
+            tag_id=tag_id,
+        )
+        post_tag.save_to_db()
+        return post_tag
+
+    @classmethod
+    def delete_post_tag(cls, post_id, tag_id):
+        """Delete post_tag."""
+        post_tag = cls.find_by_post_tag(post_id, tag_id)
+        post_tag.delete_from_db()
+
+    def save_to_db(self):
+        """Save post_tag to database."""
+        db.session.add(self)
+        db.session.commit()
+
+    def delete_from_db(self):
+        """Delete post_tag from database."""
         db.session.delete(self)
         db.session.commit()

@@ -45,6 +45,10 @@ h1 {
     text-decoration: none;
 }
 
+.btn-tags{
+    background-color:black;
+}
+
 .button_edit, .button_delete, .button {
     margin: 10px;
     padding: 10px 20px;
@@ -82,4 +86,18 @@ h1 {
 .button:hover {
     background-color: #3498db;
     color: #fff;
+}
+
+.badge {
+    display: inline-block;
+    padding: 0.25em 0.5em;
+    font-size: 80%;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 0.25rem;
+    color: #fff;
+    background-color: #007bff;
 }

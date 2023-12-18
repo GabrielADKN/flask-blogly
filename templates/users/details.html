@@ -22,16 +22,18 @@
             </button>
         </div>
         <div>
-            <p>Posts</p>
-            <ul class="list">
-                {% for post in posts %}
-                <li>
-                    <a href="/posts/{{post.id}}">
-                        {{ post.title }}
-                    </a>
-                </li>
-                {% endfor %}
-            </ul>
+            {% if user.posts %}
+                <p>Posts</p>
+                <ul class="list">
+                    {% for post in posts %}
+                    <li>
+                        <a href="/posts/{{post.id}}">
+                            {{ post.title }}
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
             <button class="button_edit">
                 <a href="/users/{{user.id}}/posts/new">Add Post</a>
             </button>
